@@ -1,0 +1,13 @@
+1. 如果從網路上clone專案下來請用composer intsall 
+2. 沒有.env文件就先產生一個空的複製來用 
+3. php artisan key:generate 產生APP_KEY 
+
+建立controller預設將所有方法產生
+php artisan make:controller parametersController --resource
+
+重新創表
+php artisan migrate:fresh
+
+
+@extends('layouts.app')
+@section('content')
