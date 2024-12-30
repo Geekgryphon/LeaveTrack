@@ -18,6 +18,8 @@
         <div>
             沒有任何參數資料。
         </div>
+        <br/>
+        <a href="{{ route('parameters.create') }}">新增</a>
     @else
         <div>
             <div>
@@ -26,6 +28,7 @@
                 <div>參數值</div>
                 <div>描述</div>
                 <div>該參數類別參數排序</div>
+                
             </div>
             <div>
                 @foreach($parameters as $parameter)
@@ -45,6 +48,9 @@
                         <div>{{ $parameter->sequence }}</div>
                     </div>
                 @endforeach
+            </div>
+            <div>
+                <a href="{{ route('parameters.create') }}">新增</a>
             </div>
             <div>
                 {{ $parameters->links() }}

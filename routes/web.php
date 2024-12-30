@@ -11,3 +11,7 @@ Route::get('/parameters/{id}/edit', [parametersController::class, 'edit'])->name
 Route::post('/parameters/{id}', [parametersController::class, 'update'])->name('parameters.update');
 Route::delete('/parameters/{id}', [parametersController::class, 'destroy'])->name('parameters.destroy');
 
+Route::get('/', function(){
+    return view('welcome');
+});
+

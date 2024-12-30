@@ -72,6 +72,7 @@ class parametersController extends Controller
 
         Parameter::create($validated);
 
+        // redirect 有避免使用者重新送出表單的效果 store destroy
         return redirect()->route('parameters.index')->with('success', '參數新增成功');
     }
 
@@ -98,5 +99,6 @@ class parametersController extends Controller
     {
         $parameter = Parameter::findOrFail($id);
         $parameter->delete();
+        return redirect()->route('parameters.index')->with('success', '參數刪除成功');
     }
 }

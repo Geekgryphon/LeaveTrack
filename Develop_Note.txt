@@ -1,4 +1,4 @@
-1. 如果從網路上clone專案下來請用composer intsall 
+1. 如果從網路上clone專案下來請用composer install  
 2. 沒有.env文件就先產生一個空的複製來用 
 3. php artisan key:generate 產生APP_KEY 
 
