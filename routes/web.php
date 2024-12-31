@@ -8,7 +8,7 @@ Route::get('/parameters', [parametersController::class, 'index'])->name('paramet
 Route::get('/parameters/create', [parametersController::class, 'create'])->name('parameters.create');
 Route::post('/parameters', [parametersController::class, 'store'])->name('parameters.store');
 Route::get('/parameters/{id}/edit', [parametersController::class, 'edit'])->name('parameters.edit');
-Route::post('/parameters/{id}', [parametersController::class, 'update'])->name('parameters.update');
+Route::put('/parameters/{id}', [parametersController::class, 'update'])->name('parameters.update');
 Route::delete('/parameters/{id}', [parametersController::class, 'destroy'])->name('parameters.destroy');
 
 Route::get('/', function(){

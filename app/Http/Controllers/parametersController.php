@@ -81,7 +81,8 @@ class parametersController extends Controller
      */
     public function edit(string $id)
     {
-        return view('parameters.edit');
+        $parameter = Parameter::findOrFail($id);;
+        return view('parameters.edit', compact('parameter'));
     }
 
     /**
@@ -89,7 +90,32 @@ class parametersController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'type' => 'required|max:160|alpha_num',
+            'name' => 'required|max:160|alpha_num',
+            'description' => 'required|max:240',
+            'value' => 'required|max:255',
+        ], [
+            'type.required' => '參數類別為必填!',
+            'type.max' => '參數類別文字長度請勿超過20個字!',
+            'type.alpha_num' => '參數類別僅能輸入英文或數字!',
+            'name.required' => '參數名稱為必填!',
+            'name.max' => '參數名稱文字長度請勿超過20個字!',
+            'name.alpha_num' => '參數名稱僅能輸入英文或數字!',
+            'description.max' => '參數名稱文字長度請勿超過10個中文字!',
+            'value.required' => '參數值為必填!',
+            'value.max' => '參數值文字長度請勿超過30個字!',
+        ]);
+
+        $parameter = Parameter::findOrFail($id);
+        $parameter->update([
+            'type' => $request->type,
+            'name' => $request->name,
+            'description' => $request->description,
+            'value' => $request->value
+        ]);
+
+        return redirect()->route('parameters.index')->with('success', "ID為{$id}的參數更新成功！");
     }
 
     /**

@@ -11,3 +11,6 @@ php artisan migrate:fresh
 
 @extends('layouts.app')
 @section('content')
+
+taliwind css 環境建置問題
+https://blog.csdn.net/syy20190110/article/details/144388414

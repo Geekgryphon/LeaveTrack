@@ -18,25 +18,33 @@
         </div>
     @endif
 
-    <form action="{{ route('parameters.update') }}" method="POST">
-
+    <form action="{{ route('parameters.update', $parameter->id) }}" method="POST">
         @csrf
+        @method('PUT')
+
+        <label for="id">ID:</label>
+        <div>{{ $parameter->id }}</div>
+
         <label for="type">參數類別:</label>
-        <input type="text" id="type" name="type" value="{{ old('type') }}">
+        <input type="text" id="type" name="type" value="{{ old('type', $parameter->type) }}">
         <br>
         
         <label for="name">參數名稱:</label>
-        <input type="text" id="name" name="name" value="{{ old('name') }}">
+        <input type="text" id="name" name="name" value="{{ old('name', $parameter->name) }}">
         <br>
 
         <label for="description">參數名稱中文描述:</label>
-        <input type="text" id="description" name="description" value="{{ old('description') }}">
+        <input type="text" id="description" name="description" value="{{ old('description', $parameter->description) }}">
         <br>
 
         <label for="value">參數值:</label>
-        <input type="text" id="value" name="value" value="{{ old('value') }}">
+        <input type="text" id="value" name="value" value="{{ old('value', $parameter->value) }}">
         <br>
-        
+
+        <label for="value">同參數類別排序:</label>
+        <input type="number" id="sequence" name="sequence" value="{{ old('sequence', $parameter->sequence) }}">
+        <br>
+
         <button type="submit">編輯參數</button>
 
         <a href="{{ route('parameters.index') }}">取消</a>
