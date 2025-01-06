@@ -18,3 +18,11 @@ php artisan migrate:fresh
 
 taliwind css 環境建置問題
 https://blog.csdn.net/syy20190110/article/details/144388414
+
+
+hasMany
+hasOne
+belongsTo
+morphMany
+morphedByMany
+belongsToMany
