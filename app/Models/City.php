@@ -10,5 +10,5 @@ class City extends Model
 
     protected $table = "cities";
     protected $primaryKey = "id";
-    protected $fillable = ["name", "order"];
+    protected $fillable = ["name", "seq"];
 }

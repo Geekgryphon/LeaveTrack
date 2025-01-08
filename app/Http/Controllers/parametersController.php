@@ -67,7 +67,7 @@ class parametersController extends Controller
                     ->orderBy('sequence', 'desc')
                     ->limit(1)
                     ->value('sequence');
-        $sequence = ($sequence === null) ? 0 : $sequence + 1;
+        $sequence = ($sequence === null) ? 1 : $sequence + 1;
         $validated['sequence'] = $sequence;
 
         Parameter::create($validated);

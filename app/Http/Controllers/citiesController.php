@@ -32,25 +32,30 @@ class citiesController extends Controller
     public function store(Request $request)
     {
        //check form content
-       $validated = $request->validate([
-            'name' => 'required',
+        $validated = $request->validate([
             'name' => 'required',
         ], [
-            'symbol.required' => '職位代碼為必填!',
-            'symbol.alpha_num' => '職位代碼僅能輸入英文或數字!',
-            'name.required' => '職位中文名稱為必填!',
+            'name.required' => '縣市中文名稱為必填!',
         ]);
 
         //check data exists
-        $isExists =  DB::table('roles')
-            ->where('symbol', $request->symbol)
+        $isExists =  DB::table('cities')
+            ->where('name', $request->name)
             ->first();
 
         if ($isExists) {
             return back()->withErrors([
-                'symbol' => '該職位代碼已存在，請選擇其他名稱。',
+                'name' => '該縣市已存在，請輸入其他名稱。',
             ])->withInput();
         }
+
+        // get sequence
+        $seq = DB::table('cities')
+                    ->orderBy('seq', 'desc')
+                    ->limit(1)
+                    ->value('seq');
+        $seq = ($seq === null) ? 1 : $seq + 1;
+        $validated['seq'] = $seq;
 
         City::create($validated);
 
@@ -72,7 +77,22 @@ class citiesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //check form content
+        $validated = $request->validate([
+            'name' => 'required',
+            'seq' => 'required',
+        ], [
+            'name.required' => '縣市中文名稱為必填!',
+            'seq.required' => '排序資料不得為空!',
+        ]);
+
+        $city = City::findOrFail($id);
+        $city->update([
+            'name' => $request->name,
+            'seq' => $request->seq
+        ]);
+
+        return redirect()->route('cities.index')->with('success', "ID為{$id}的縣市資料更新成功！");
     }
 
     /**
