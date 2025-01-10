@@ -4,8 +4,10 @@
 
 建立controller預設將所有方法產生
 php artisan make:controller parametersController --resource
-php artisan make:model xxxx -f Factory -s Seed -p policy
+php artisan make:model xxxx -s  -p -f
+(Factory Seed policy)
 php artisan make:migration create_products_table
+php artisan make:seeder DistrictSeeder
 
 重新創表
 php artisan migrate:fresh

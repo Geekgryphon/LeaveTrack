@@ -14,12 +14,12 @@
         <x-message :message="session('success')" />
     @endif
 
-    @if($cities->isEmpty())
+    @if($leavetypes->isEmpty())
         <div>
             沒有任何參數資料。
         </div>
         <br/>
-        <a href="{{ route('cities.create') }}">新增</a>
+        <a href="{{ route('leavetypes.create') }}">新增</a>
     @else
         <div>
             <div>
@@ -28,17 +28,17 @@
             <div>
                 <div>
                     <div></div>
-                    <div>縣市中文名稱</div>
-                    <div>縣市排列順序</div>
+                    <div>假別代號</div>
+                    <div>假別名稱</div>
                 </div>
                 <div>
-                    @foreach ($cities as $city)
+                    @foreach ($leavetypes as $leavetype)
                         <div>
                             <div>
-                                <a href="{{ route('cities.edit', $city->id) }}">編輯</a>
+                                <a href="{{ route('leavetypes.edit', $leavetype->id) }}">編輯</a>
                             </div>
                             <div>
-                                <form action="{{ route('cities.destroy', $city->id) }}" method="POST">
+                                <form action="{{ route('leavetypes.destroy', $leavetype->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <div class="">
@@ -47,12 +47,12 @@
                                 </form>
                             </div>
                         </div>
-                        <div> {{ $city->name }} </div>
-                        <div> {{ $city->seq }} </div>
+                        <div> {{ $leavetype->code }} </div>
+                        <div> {{ $leavetype->name }} </div>
                     @endforeach
                 </div>
                 <div>
-                    <a href="{{ route('cities.create') }}">新增</a>
+                    <a href="{{ route('leavetypes.create') }}">新增</a>
                 </div>
             </div>
         </div>

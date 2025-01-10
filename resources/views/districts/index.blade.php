@@ -14,12 +14,12 @@
         <x-message :message="session('success')" />
     @endif
 
-    @if($cities->isEmpty())
+    @if($districts->isEmpty())
         <div>
             沒有任何參數資料。
         </div>
         <br/>
-        <a href="{{ route('cities.create') }}">新增</a>
+        <a href="{{ route('districts.create') }}">新增</a>
     @else
         <div>
             <div>
@@ -29,16 +29,18 @@
                 <div>
                     <div></div>
                     <div>縣市中文名稱</div>
-                    <div>縣市排列順序</div>
+                    <div>鄉鎮中文名稱</div>
+                    <div>郵政區號</div>
+                    <div>鄉鎮排列順序</div>
                 </div>
                 <div>
-                    @foreach ($cities as $city)
+                    @foreach ($districts as $district)
                         <div>
                             <div>
-                                <a href="{{ route('cities.edit', $city->id) }}">編輯</a>
+                                <a href="{{ route('districts.edit', $district->id) }}">編輯</a>
                             </div>
                             <div>
-                                <form action="{{ route('cities.destroy', $city->id) }}" method="POST">
+                                <form action="{{ route('districts.destroy', $district->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <div class="">
@@ -47,12 +49,14 @@
                                 </form>
                             </div>
                         </div>
-                        <div> {{ $city->name }} </div>
-                        <div> {{ $city->seq }} </div>
+                        <div> {{ $district->city_name }} </div>
+                        <div> {{ $district->district_name }} </div>
+                        <div> {{ $district->zipcode }} </div>
+                        <div> {{ $district->seq }} </div>
                     @endforeach
                 </div>
                 <div>
-                    <a href="{{ route('cities.create') }}">新增</a>
+                    <a href="{{ route('districts.create') }}">新增</a>
                 </div>
             </div>
         </div>

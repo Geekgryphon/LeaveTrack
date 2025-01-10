@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>新增縣市</h1>
+    <h1>新增鄉鎮</h1>
 
     @if($errors->any())
         <div>

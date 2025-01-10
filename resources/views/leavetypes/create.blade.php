@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>新增縣市</h1>
+    <h1>新增假別</h1>
 
     @if($errors->any())
         <div>
@@ -18,16 +18,20 @@
         </div>
     @endif
 
-    <form action="{{ route('cities.store') }}" method="POST">
+    <form action="{{ route('leavetypes.store') }}" method="POST">
 
         @csrf
-        <label for="name">縣市中文名稱:</label>
+        <label for="name">假別代號:</label>
+        <input type="text" id="code" name="code" value="{{ old('code') }}">
+        <br>
+
+        <label for="name">假別名稱:</label>
         <input type="text" id="name" name="name" value="{{ old('name') }}">
         <br>
         
         <button type="submit">新增縣市</button>
 
-        <a href="{{ route('cities.index') }}">取消</a>
+        <a href="{{ route('leavetypes.index') }}">取消</a>
     </form>
 </body>
 </html>

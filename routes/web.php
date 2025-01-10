@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\parametersController;
 use App\Http\Controllers\rolesController;
 use App\Http\Controllers\citiesController;
+use App\Http\Controllers\leavetypesController;
+use App\Http\Controllers\jobexprsController;
+use App\Http\Controllers\districtsController;
 
 Route::get('/parameters', [parametersController::class, 'index'])->name('parameters.index');
 Route::get('/parameters/create', [parametersController::class, 'create'])->name('parameters.create');
@@ -26,6 +29,27 @@ Route::post('/cities', [citiesController::class, 'store'])->name('cities.store')
 Route::get('/cities/{id}/edit', [citiesController::class, 'edit'])->name('cities.edit');
 Route::put('/cities/{id}', [citiesController::class, 'update'])->name('cities.update');
 Route::delete('/cities/{id}', [citiesController::class, 'destroy'])->name('cities.destroy');
+
+Route::get('/leavetypes', [leavetypesController::class, 'index'])->name('leavetypes.index');
+Route::get('/leavetypes/create', [leavetypesController::class, 'create'])->name('leavetypes.create');
+Route::post('/leavetypes', [leavetypesController::class, 'store'])->name('leavetypes.store');
+Route::get('/leavetypes/{id}/edit', [leavetypesController::class, 'edit'])->name('leavetypes.edit');
+Route::put('/leavetypes/{id}', [leavetypesController::class, 'update'])->name('leavetypes.update');
+Route::delete('/leavetypes/{id}', [leavetypesController::class, 'destroy'])->name('leavetypes.destroy');
+
+Route::get('/jobexprs', [jobexprsController::class, 'index'])->name('jobexprs.index');
+Route::get('/jobexprs/create', [jobexprsController::class, 'create'])->name('jobexprs.create');
+Route::post('/jobexprs', [jobexprsController::class, 'store'])->name('jobexprs.store');
+Route::get('/jobexprs/{id}/edit', [jobexprsController::class, 'edit'])->name('jobexprs.edit');
+Route::put('/jobexprs/{id}', [jobexprsController::class, 'update'])->name('jobexprs.update');
+Route::delete('/jobexprs/{id}', [jobexprsController::class, 'destroy'])->name('jobexprs.destroy');
+
+Route::get('/districts', [districtsController::class, 'index'])->name('districts.index');
+Route::get('/districts/create', [districtsController::class, 'create'])->name('districts.create');
+Route::post('/districts', [districtsController::class, 'store'])->name('districts.store');
+Route::get('/districts/{id}/edit', [districtsController::class, 'edit'])->name('districts.edit');
+Route::put('/districts/{id}', [districtsController::class, 'update'])->name('districts.update');
+Route::delete('/districts/{id}', [districtsController::class, 'destroy'])->name('districts.destroy');
 
 
 Route::get('/', function() {
