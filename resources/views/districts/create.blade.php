@@ -18,7 +18,7 @@
         </div>
     @endif
 
-    <form action="{{ route('cities.store') }}" method="POST">
+    <form action="{{ route('districts.store') }}" method="POST">
 
         @csrf
         <label for="city_id">縣市:</label>
@@ -27,7 +27,7 @@
                 <option value="">沒有縣市</option>
             @else
                 @foreach($cities as $city)
-                    <option value="{{ $city->id }}" {{ old('id') == $city->id ? 'selected' : '' }}>
+                    <option value="{{ $city->id }}">
                         {{ $city->name }}
                     </option>
                 @endforeach
@@ -36,11 +36,15 @@
         <br>
 
         <label for="zipcode">郵政區號</label>
-        <input type="text">
-        
-        <button type="submit">新增鄉鎮</button>
+        <input type="text" id="zipcode" name="zipcode">
+        <br/>
 
-        <a href="{{ route('cities.index') }}">取消</a>
+        <label for="name">鄉鎮名稱</label>
+        <input type="text" id="name" name="name">
+        <br/>
+
+        <button type="submit">新增鄉鎮</button>
+        <a href="{{ route('districts.index') }}">取消</a>
     </form>
 </body>
 </html>

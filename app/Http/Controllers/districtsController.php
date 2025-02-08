@@ -21,7 +21,7 @@ class districtsController extends Controller
                                 'districts.name as district_name', 'districts.zipcode', 
                                 'districts.seq')
                        ->paginate(10);
-        return views('districts.index',compact('districts'));
+        return view('districts.index',compact('districts'));
     }
 
     /**
@@ -30,7 +30,7 @@ class districtsController extends Controller
     public function create()
     {
         $cities = City::all();
-        return views('districts.create',compact('cities'));
+        return view('districts.create',compact('cities'));
     }
 
     /**
@@ -38,7 +38,39 @@ class districtsController extends Controller
      */
     public function store(Request $request)
     {
-        District::create($request);
+
+        //check form content
+        $validated = $request->validate([
+            'zipcode' => 'required',
+            'name' => 'required',
+        ], [
+            'zipcode.required' => '郵政區號為必填!',
+            'name.required' => '鄉鎮名稱為必填!',
+        ]);
+
+        $validated['city_id'] = $request->city_id;
+
+        //check data exists
+        $isExists =  DB::table('districts')
+            ->where('name', $request->name)
+            ->first();
+
+        if ($isExists) {
+            return back()->withErrors([
+                'name' => '該鄉鎮已存在，請輸入其他名稱。',
+            ])->withInput();
+        }
+
+        // get sequence
+        $seq = DB::table('districts')
+                    ->orderBy('seq', 'desc')
+                    ->limit(1)
+                    ->value('seq');
+        $seq = ($seq === null) ? 1 : $seq + 1;
+        $validated['seq'] = $seq;
+
+
+        District::create($validated);
         return redirect()->route('districts.index')->with('success', '鄉鎮新增成功');
     }
 
@@ -48,7 +80,8 @@ class districtsController extends Controller
     public function edit(string $id)
     {
         $district = District::findOrFail($id);
-        return views('districts.edit', compact('district'));
+        $cities = City::all();
+        return view('districts.edit', compact('district', 'cities'));
     }
 
     /**
