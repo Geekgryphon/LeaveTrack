@@ -8,6 +8,7 @@ use App\Http\Controllers\citiesController;
 use App\Http\Controllers\leavetypesController;
 use App\Http\Controllers\jobexprsController;
 use App\Http\Controllers\districtsController;
+use App\Http\Controllers\employeesController;
 
 Route::get('/parameters', [parametersController::class, 'index'])->name('parameters.index');
 Route::get('/parameters/create', [parametersController::class, 'create'])->name('parameters.create');
@@ -50,6 +51,13 @@ Route::post('/districts', [districtsController::class, 'store'])->name('district
 Route::get('/districts/{id}/edit', [districtsController::class, 'edit'])->name('districts.edit');
 Route::put('/districts/{id}', [districtsController::class, 'update'])->name('districts.update');
 Route::delete('/districts/{id}', [districtsController::class, 'destroy'])->name('districts.destroy');
+
+Route::get('/employees', [employeesController::class, 'index'])->name('employees.index');
+Route::get('/employees/create', [employeesController::class, 'create'])->name('employees.create');
+Route::post('/employees', [employeesController::class, 'store'])->name('employees.store');
+Route::get('/employees/{id}/edit', [employeesController::class, 'edit'])->name('employees.edit');
+Route::put('/employees/{id}', [employeesController::class, 'update'])->name('employees.update');
+Route::delete('/employees/{id}', [employeesController::class, 'destroy'])->name('employees.destroy');
 
 
 Route::get('/', function() {

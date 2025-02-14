@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\City;
+use App\Models\District;
+use App\Models\Employee;
+use App\Models\Parameter;
 
 class employeesController extends Controller
 {
@@ -11,7 +16,19 @@ class employeesController extends Controller
      */
     public function index()
     {
-        //
+        $employees = DB::table('employees')
+                       ->join('cities', 'employees.city_id', '=', 'cities.id')
+                       ->join('districts', 'employees.district_id', '=', 'districts.id')
+                       ->leftJoin('parameters', [
+                            ["parameters.name","=", DB::raw("'Sex'")],
+                            ["parameters.value","=","employees.sex"]
+                       ])
+                       ->select('parameters.value as sex', 'cities.name as city_name', 
+                                'districts.name as district_name', 'name', 'emergencycontactname',
+                                'birthday')
+                       ->paginate(10);
+
+        return view('employees.index',compact('employees'));
     }
 
     /**
@@ -19,7 +36,9 @@ class employeesController extends Controller
      */
     public function create()
     {
-        //
+        $cities = City::all();
+        $districts = District::all();
+        return view('employees.create',compact('cities', 'districts'));
     }
 
     /**
@@ -27,7 +46,7 @@ class employeesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -35,7 +54,11 @@ class employeesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        $districts = District::all();
+        $cities = City::all();
+        $sexs = Parameter::where('name','=', 'Sex')->orderBy('sequence','asc');
+        return view('employees.edit', compact('employee','district', 'cities'));
     }
 
     /**
@@ -43,7 +66,19 @@ class employeesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        $employee->update([
+            'name' => $request->name,
+            'sex' => $request->sex,
+            'mobile' => $request->mobile,
+            'birthday' => $request->birthday,
+            'city_id' => $request->city_id,
+            'district_id' => $request->district_id,
+            'street' => $request->street,
+            'emergencycontactname' => $request->emergencycontactname,
+            'emergencycontactphone' => $request->emergencycontactphone,
+        ]);
+        return redirect()->route('employees.index')->with('success', '員工資料更新成功');
     }
 
     /**
@@ -51,6 +86,8 @@ class employeesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        $employee->delete();
+        return redirect()->route('employees.index')->with('success', '員工資料刪除成功');
     }
 }
