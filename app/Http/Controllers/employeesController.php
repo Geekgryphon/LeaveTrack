@@ -20,7 +20,7 @@ class employeesController extends Controller
                        ->join('cities', 'employees.city_id', '=', 'cities.id')
                        ->join('districts', 'employees.district_id', '=', 'districts.id')
                        ->leftJoin('parameters', [
-                            ["parameters.name","=", DB::raw("'Sex'")],
+                            ["parameters.name","=", 'Sex'],
                             ["parameters.value","=","employees.sex"]
                        ])
                        ->select('parameters.value as sex', 'cities.name as city_name', 
