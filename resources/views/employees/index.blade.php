@@ -8,6 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="{{ route('employees.create') }}">新增</a>
+    <a class="bg-blue-500" href="{{ route('employees.create') }}">新增</a>
 </body>
 </html>
