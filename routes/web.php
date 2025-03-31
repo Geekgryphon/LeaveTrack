@@ -9,6 +9,10 @@ use App\Http\Controllers\leavetypesController;
 use App\Http\Controllers\jobexprsController;
 use App\Http\Controllers\districtsController;
 use App\Http\Controllers\employeesController;
+use App\Http\Controllers\leaveformsController;
+use App\Http\Controllers\signproxiesController;
+
+
 
 Route::get('/parameters', [parametersController::class, 'index'])->name('parameters.index');
 Route::get('/parameters/create', [parametersController::class, 'create'])->name('parameters.create');
@@ -59,6 +63,19 @@ Route::get('/employees/{id}/edit', [employeesController::class, 'edit'])->name('
 Route::put('/employees/{id}', [employeesController::class, 'update'])->name('employees.update');
 Route::delete('/employees/{id}', [employeesController::class, 'destroy'])->name('employees.destroy');
 
+Route::get('/leaveforms', [leaveformsController::class, 'index'])->name('leaveforms.index');
+Route::get('/leaveforms/create', [leaveformsController::class, 'create'])->name('leaveforms.create');
+Route::post('/leaveforms', [leaveformsController::class, 'store'])->name('leaveforms.store');
+Route::get('/leaveforms/{id}/edit', [leaveformsController::class, 'edit'])->name('leaveforms.edit');
+Route::put('/leaveforms/{id}', [leaveformsController::class, 'update'])->name('leaveforms.update');
+Route::delete('/leaveforms/{id}', [leaveformsController::class, 'destroy'])->name('leaveforms.destroy');
+
+Route::get('/signproxies', [signproxiesController::class, 'index'])->name('signproxies.index');
+Route::get('/signproxies/create', [signproxiesController::class, 'create'])->name('signproxies.create');
+Route::post('/signproxies', [signproxiesController::class, 'store'])->name('signproxies.store');
+Route::get('/signproxies/{id}/edit', [signproxiesController::class, 'edit'])->name('signproxies.edit');
+Route::put('/signproxies/{id}', [signproxiesController::class, 'update'])->name('signproxies.update');
+Route::delete('/signproxies/{id}', [signproxiesController::class, 'destroy'])->name('signproxies.destroy');
 
 Route::get('/', function() {
     return view('welcome');
