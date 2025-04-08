@@ -7,6 +7,9 @@
     <title>Document</title>
 </head>
 <body>
+
+    {{ dd($Sexs) }}
+
     <h1>新增職員資料</h1>
 
     <form action="{{ route('employees.store') }}" method="POST">

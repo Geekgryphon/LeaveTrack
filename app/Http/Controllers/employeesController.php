@@ -36,9 +36,10 @@ class employeesController extends Controller
      */
     public function create()
     {
-        $cities = City::all();
-        $districts = District::all();
-        return view('employees.create',compact('cities', 'districts'));
+        $cities = DB::table('cities')->select('name', 'seq')->get();
+        $districts = DB::table('districts')->select('city_id', 'zipcode', 'name', 'seq')->get();
+        $Sexs = DB::table('parameters')->where('type','Sex')->select('description', 'value')->get();
+        return view('employees.create',compact('cities', 'districts', 'Sexs'));
     }
 
     /**
@@ -46,7 +47,9 @@ class employeesController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $employee = Employee::create($request);
+        return redirect()->route('employees.index')->with('success', '創建員工成功！');
+
     }
 
     /**
