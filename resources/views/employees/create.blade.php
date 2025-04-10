@@ -8,8 +8,6 @@
 </head>
 <body>
 
-    {{ dd($Sexs) }}
-
     <h1>新增職員資料</h1>
 
     <form action="{{ route('employees.store') }}" method="POST">
@@ -23,7 +21,11 @@
         <br/>
 
         <label for="sex">性別:</label>
-        <input type="text" id="sex" name="sex" value="{{ old('sex')}}">
+        <select id="sex" name="name">
+            @foreach($sexs as $sex)
+                <option value="{{ $sex->value }}" {{ old('sex') == $sex->value ? 'selected' : '' }}>{{ $sex->description }}</option>
+            @endforeach
+        </select>
         <br/>
 
         <label for="mobile">手機:</label>
@@ -35,11 +37,18 @@
         <br/>
 
         <label for="city_id">縣市:</label>
-        <input type="text" id="city_id" name="city_id" value="{{ old('city_id')}}">
+        <select id="city_id" name="city_id">
+            <option value=''>請選擇縣市</option>
+            @foreach($cities as $citie)
+                <option value="{{ $citie->id }}" {{ old('city_id') == $citie->id ? 'selected' : '' }}>{{ $citie->name}}</option>
+            @endforeach
+        </select>
         <br/>
 
         <label for="district_id">鄉鎮區:</label>
-        <input type="text" id="district_id" name="district_id" value="{{ old('district_id')}}">
+        <select id="district_id" name="district_id">
+            <option value=''>請選擇鄉鎮</option>
+        </select>
         <br/>
 
         <label for="street">地址:</label>
@@ -57,5 +66,47 @@
         <button type="submit">送出</button>
         <a href="{{ route('employees.index') }}">取消</a>
     </form>
+    <script>
+        var districts = @json($districts);
+
+        function updateDistricts(cityId){
+            
+
+            var districtDropdown = document.getElementById('district_id');
+
+            if(!cityId) {
+                districtDropdown.innerHTML = "<option value=''>請選擇鄉鎮</option>";
+                return;
+            }else{
+                districtDropdown.innerHTML = "";
+            }
+
+            var filteredDistricts = districts.filter(d =>d.city_id == cityId);
+
+            filteredDistricts.forEach(d => {
+                var option = document.createElement('option');
+                option.value = d.id;
+                option.textContent = d.name;
+                districtDropdown.appendChild(option);
+            });
+        }
+
+        document.getElementById('city_id').addEventListener('change', function(){
+            updateDistricts(this.value);
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var oldCityId = "{{ old('city_id') }}";
+            var oldDistrictId = "{{ old('district_id') }}";
+
+            if (oldCityId) {
+                updateDistricts(oldCityId);
+
+                setTimeout(() => {
+                    document.getElementById('district_id').value = oldDistrictId;
+                }, 100);
+            }
+        });
+    </script>
 </body>
 </html>

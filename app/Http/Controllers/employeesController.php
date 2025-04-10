@@ -36,10 +36,10 @@ class employeesController extends Controller
      */
     public function create()
     {
-        $cities = DB::table('cities')->select('name', 'seq')->get();
-        $districts = DB::table('districts')->select('city_id', 'zipcode', 'name', 'seq')->get();
-        $Sexs = DB::table('parameters')->where('type','Sex')->select('description', 'value')->get();
-        return view('employees.create',compact('cities', 'districts', 'Sexs'));
+        $cities = DB::table('cities')->select('id','name', 'seq')->get();
+        $districts = DB::table('districts')->select('id','city_id', 'zipcode', 'name', 'seq')->get();
+        $sexs = DB::table('parameters')->select('description', 'value')->where('type','Sex')->get();
+        return view('employees.create',compact('cities', 'districts', 'sexs'));
     }
 
     /**
@@ -47,6 +47,8 @@ class employeesController extends Controller
      */
     public function store(Request $request)
     {
+        // 檢查資料是否正常
+
         $employee = Employee::create($request);
         return redirect()->route('employees.index')->with('success', '創建員工成功！');
 
@@ -60,7 +62,7 @@ class employeesController extends Controller
         $employee = Employee::findOrFail($id);
         $districts = District::all();
         $cities = City::all();
-        $sexs = Parameter::where('name','=', 'Sex')->orderBy('sequence','asc');
+        $sexs = Parameter::select('', '')->where('name','=', 'Sex')->orderBy('sequence','asc')->get();
         return view('employees.edit', compact('employee','district', 'cities'));
     }
 
