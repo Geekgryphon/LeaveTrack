@@ -48,8 +48,19 @@ class employeesController extends Controller
     public function store(Request $request)
     {
         // 檢查資料是否正常
-
-        $employee = Employee::create($request);
+        $validated = $request->validate([
+            'id' => 'required|string',
+            'name' => 'required|string',
+            'sex' => 'required|integer',
+            'mobile' => 'required|string',
+            'birthday' => 'required|date',
+            'city_id' => 'required|integer',
+            'district_id' => 'required|integer',
+            'street' => 'required|string',
+            'emergencycontactname' => 'required|string',
+            'emergencycontactphone' => 'required|string',
+        ]);
+        Employee::create($validated);
         return redirect()->route('employees.index')->with('success', '創建員工成功！');
 
     }

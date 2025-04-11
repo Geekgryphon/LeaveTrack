@@ -21,7 +21,7 @@
         <br/>
 
         <label for="sex">性別:</label>
-        <select id="sex" name="name">
+        <select id="sex" name="sex">
             @foreach($sexs as $sex)
                 <option value="{{ $sex->value }}" {{ old('sex') == $sex->value ? 'selected' : '' }}>{{ $sex->description }}</option>
             @endforeach
@@ -33,7 +33,7 @@
         <br/>
 
         <label for="birthday">生日:</label>
-        <input type="date" id="mobile" name="mobile" value="{{ old('mobile')}}">
+        <input type="date" id="birthday" name="birthday" value="{{ old('birthday')}}">
         <br/>
 
         <label for="city_id">縣市:</label>
