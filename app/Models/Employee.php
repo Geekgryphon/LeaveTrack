@@ -11,5 +11,5 @@ class Employee extends Model
     protected $table = 'employees';
     protected $primaryKey = 'id';
     protected $fillable = ['name', 'sex', 'mobile', 'birthday', 'city_id', 
-                           'district_id', 'street', 'emergencycontactname', 'emergencycontactphone'];
+                           'district_id', 'street'];
 }

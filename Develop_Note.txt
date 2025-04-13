@@ -2,6 +2,7 @@
 2. 沒有.env文件就先產生一個空的複製來用 
 3. php artisan key:generate 產生APP_KEY 
 
+
 建立controller預設將所有方法產生
 php artisan make:controller parametersController --resource
 php artisan make:model xxxx -s  -p -f
@@ -11,6 +12,8 @@ php artisan make:seeder DistrictSeeder
 
 重新創表
 php artisan migrate:fresh
+
+在store function檢查欄位值後才會在update把值寫入資料庫
 
 
 @extends('layouts.app')
