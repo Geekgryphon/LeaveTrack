@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
 class ParameterSeeder extends Seeder
 {
