@@ -24,7 +24,7 @@ class employeesController extends Controller
                             ["parameters.value","=","employees.sex"]
                        ])
                        ->select('parameters.value as sex', 'cities.name as city_name', 
-                                'districts.name as district_name', 'name', 'emergencycontactname',
+                                'districts.name as district_name', 'employees.name as employee_name ', 'emergencycontactname',
                                 'birthday')
                        ->paginate(10);
 
@@ -57,9 +57,10 @@ class employeesController extends Controller
             'city_id' => 'required|integer',
             'district_id' => 'required|integer',
             'street' => 'required|string',
-            'emergencycontactname' => 'required|string',
-            'emergencycontactphone' => 'required|string',
+            'emergencycontactname' => 'nullable|string',
+            'emergencycontactphone' => 'nullable|string',
         ]);
+
         Employee::create($validated);
         return redirect()->route('employees.index')->with('success', '創建員工成功！');
 

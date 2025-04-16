@@ -20,8 +20,8 @@ return new class extends Migration
             $table->integer("city_id");
             $table->integer("district_id");
             $table->string("street");
-            $table->string("emergencycontactname");
-            $table->string("emergencycontactphone");
+            $table->string("emergencycontactname")->nullable();
+            $table->string("emergencycontactphone")->nullable();
         });
     }
 
