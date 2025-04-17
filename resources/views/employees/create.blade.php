@@ -12,8 +12,8 @@
 
     <form action="{{ route('employees.store') }}" method="POST">
         @csrf
-        <label for="id">職員編號:</label>
-        <input type="text" id="id" name="id" value="{{ old('id')}}">
+        <label for="employeeno">職員編號:</label>
+        <input type="text" id="employeeno" name="employeeno" value="{{ old('employeeno')}}">
         <br/>
 
         <label for="name">職員姓名:</label>

@@ -20,12 +20,12 @@ class employeesController extends Controller
                        ->join('cities', 'employees.city_id', '=', 'cities.id')
                        ->join('districts', 'employees.district_id', '=', 'districts.id')
                        ->leftJoin('parameters', [
-                            ["parameters.name","=", 'Sex'],
+                            ["parameters.type","=", DB::raw("'Sex'")],
                             ["parameters.value","=","employees.sex"]
                        ])
-                       ->select('parameters.value as sex', 'cities.name as city_name', 
-                                'districts.name as district_name', 'employees.name as employee_name ', 'emergencycontactname',
-                                'birthday')
+                       ->select('parameters.description as sex', 'cities.name as city_name', 
+                                'districts.name as district_name', 'employees.name as employee_name',
+                                'birthday', 'employeeno')
                        ->paginate(10);
 
         return view('employees.index',compact('employees'));
@@ -49,7 +49,7 @@ class employeesController extends Controller
     {
         // 檢查資料是否正常
         $validated = $request->validate([
-            'id' => 'required|string',
+            'employeeno' => 'required|string',
             'name' => 'required|string',
             'sex' => 'required|integer',
             'mobile' => 'required|string',
