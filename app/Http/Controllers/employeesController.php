@@ -25,7 +25,7 @@ class employeesController extends Controller
                        ])
                        ->select('parameters.description as sex', 'cities.name as city_name', 
                                 'districts.name as district_name', 'employees.name as employee_name',
-                                'birthday', 'employeeno')
+                                'birthday', 'employeeno', 'is_banned')
                        ->paginate(10);
 
         return view('employees.index',compact('employees'));
@@ -66,9 +66,7 @@ class employeesController extends Controller
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id)
     {
         $employee = Employee::findOrFail($id);
@@ -78,9 +76,16 @@ class employeesController extends Controller
         return view('employees.edit', compact('employee','district', 'cities'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    public function updateIsBanned(Request $request, string $employeeno){
+
+        Employee::where('employeeno', $employeeno)->update([
+            'is_banned' => DB::raw('NOT is_banned')
+        ]);
+
+        return redirect()->route('employees.index')->with('success', '員工停權更新成功');
+    }
+
+
     public function update(Request $request, string $id)
     {
         $employee = Employee::findOrFail($id);

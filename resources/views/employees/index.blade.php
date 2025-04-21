@@ -21,34 +21,36 @@
         <br/>
         <a href="{{ route('employees.create') }}">新增</a>
     @else
-        <div>
+       
             <div>
-                <div class="bg-green-500 p-2  inline-block">
-                    <a href="{{ route('employees.edit', $employee->employeeno) }}">編輯</a>
-                </div>
-                <div class="bg-yellow-500 p-2  inline-block">
-                    <form action="{{ route('employees.destroy', $employee->employeeno) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <div class="bg ">
-                            <button type="submit">刪除</button>
-                        </div>
-                    </form>
-                </div>
+                <div></div>
+                <div>職員帳號</div>
+                <div>職員姓名</div>
+                <div>性別</div>
+                <div>生日</div>
             </div>
-            <div>職員帳號</div>
-            <div>職員姓名</div>
-            <div>性別</div>
-            <div>生日</div>
-        </div>
-        <div>
             @foreach($employees as $employee)
+            <div>
+                <div>
+                    <div class="bg-green-500 p-2  inline-block">
+                        <a href="{{ route('employees.edit', $employee->employeeno) }}">編輯</a>
+                    </div>
+                    <div class="{{ $employee->is_banned ? 'bg-blue-500' : 'bg-red-500' }} p-2  inline-block">
+                        <form action="{{ route('employees.updateIsBanned', $employee->employeeno) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <div>
+                                <button type="submit">{{ $employee->is_banned ? '復權' : '停權' }}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <div>{{ $employee->employeeno }}</div>
                 <div>{{ $employee->employee_name }}</div>
                 <div>{{ $employee->sex }}</div>
                 <div>{{ $employee->birthday }}</div>
+            </div>
             @endforeach
-        </div>
         <a class="bg-blue-500" href="{{ route('employees.create') }}">新增</a>
 
     @endif

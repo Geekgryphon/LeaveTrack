@@ -59,9 +59,9 @@ Route::delete('/districts/{id}', [districtsController::class, 'destroy'])->name(
 Route::get('/employees', [employeesController::class, 'index'])->name('employees.index');
 Route::get('/employees/create', [employeesController::class, 'create'])->name('employees.create');
 Route::post('/employees', [employeesController::class, 'store'])->name('employees.store');
-Route::get('/employees/{id}/edit', [employeesController::class, 'edit'])->name('employees.edit');
-Route::put('/employees/{id}', [employeesController::class, 'update'])->name('employees.update');
-Route::delete('/employees/{id}', [employeesController::class, 'destroy'])->name('employees.destroy');
+Route::get('/employees/{employeeno}/edit', [employeesController::class, 'edit'])->name('employees.edit');
+Route::put('/employees/{employeeno}', [employeesController::class, 'update'])->name('employees.update');
+Route::patch('/employees/{employeeno}/IsBanned', [employeesController::class, 'updateIsBanned'])->name('employees.updateIsBanned');
 
 Route::get('/leaveforms', [leaveformsController::class, 'index'])->name('leaveforms.index');
 Route::get('/leaveforms/create', [leaveformsController::class, 'create'])->name('leaveforms.create');
