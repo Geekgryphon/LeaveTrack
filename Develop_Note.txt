@@ -1,20 +1,40 @@
-1. 如果從網路上clone專案下來請用composer install  
-2. 沒有.env文件就先產生一個空的複製來用 
-3. php artisan key:generate 產生APP_KEY 
+如果從網路上clone專案下來請用composer install  
+沒有.env文件就先產生一個空的複製來用 
+php artisan key:generate 產生APP_KEY 
 
 
-建立controller預設將所有方法產生
-php artisan make:controller parametersController --resource
-php artisan make:model xxxx -s  -p -f
-(Factory Seed policy)
-php artisan make:migration create_products_table
-php artisan make:seeder DistrictSeeder
+Controller
+    php artisan make:controller parametersController -r (--resource)            建立controller預設將所有方法產生
+    php artisan make:controller ProductController --model=Product --resource    同時建立 Model + Resource Controller
+    php artisan make:controller DoSomethingController -i (--invokable)          建立 Invokable Controller
+    php artisan make:controller Api/ProductController --api                     建立 API 專用的資源控制器（不包含 create 和 edit，配合 Route::apiResource()）  
+    php artisan make:controller Admin/UserController                            建立控制器到子資料夾中(沒有資料夾會自行產生)
+Model (可混搭)
+    php artisan make:model Product -m (--migration)                             建立模型 + migration(Create)
+    php artisan make:model Product -c (--controller)                            建立模型 + controller
+    php artisan make:model Product -f (--factory)                               建立模型 + factory
+    php artisan make:model Product -s (--seeder)                                建立模型 + seeder
+    php artisan make:model Product -mfscr                                       一次建立所有相關檔案
+    (r controller 用 resource 格式)
+    php artisan make:model Admin/Product                                        建立模型在子目錄中
+    php artisan make:model RoleUser -p (--pivot)                                建立 pivot 模型（中介表）
 
-重新創表
-php artisan migrate:fresh
+Migrate 
 
-寫入預設資料
-php artisan db:seed
+    php artisan make:migration create_products_table
+    php artisan make:migration add_is_active_to_users_table
+    php artisan make:migration update_products_table --table=products           手動指定是修改資料表
+    最後在執行
+    php artisan make:migrate 
+
+    重新創表 php artisan migrate:fresh 
+
+Seeder 
+
+    php artisan make:seeder DistrictSeeder
+    寫入預設資料  php artisan db:seed
+
+
 
 在store function檢查欄位值後才會在update把值寫入資料庫
 
