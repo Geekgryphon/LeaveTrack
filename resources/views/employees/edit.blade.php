@@ -9,8 +9,6 @@
 <body>
     <h1>編輯職員資料</h1>
 
-    {{ dd($sexs); }}
-
     <form action="{{ route('employee.update', $employee->employeeno) }}" method="POST">
         @csrf
 
@@ -22,23 +20,23 @@
         <input type="text" id="name" name="name" value="{{ old('name', $employee->name)}}">
         <br/>
 
-        {{-- <label for="sex">性別:</label>
+        <label for="sex">性別:</label>
         <select id="sex" name="sex">
             @foreach($sexs as $sex)
-                <option value="{{ $sex->value }}" {{ old('sex') == $sex->value ? 'selected' : '' }}>{{ $sex->description }}</option>
+                <option value="{{ $sex->value }}" {{ old('sex', $employee->sex) == $sex->value ? 'selected' : '' }}>{{ $sex->description }}</option>
             @endforeach
         </select>
-        <br/> --}}
+        <br/>
 
         <label for="mobile">手機:</label>
-        <input type="text" id="mobile" name="mobile" value="{{ old('mobile')}}">
+        <input type="text" id="mobile" name="mobile" value="{{ old('mobile', $employee->mobile)}}">
         <br/>
 
         <label for="birthday">生日:</label>
-        <input type="date" id="birthday" name="birthday" value="{{ old('birthday')}}">
+        <input type="date" id="birthday" name="birthday" value="{{ old('birthday', $employee->birthday)}}">
         <br/>
 
-        {{-- <label for="city_id">縣市:</label>
+        <label for="city_id">縣市:</label>
         <select id="city_id" name="city_id">
             <option value=''>請選擇縣市</option>
             @foreach($cities as $citie)
@@ -51,25 +49,25 @@
         <select id="district_id" name="district_id">
             <option value=''>請選擇鄉鎮</option>
         </select>
-        <br/> --}}
+        <br/>
 
         <label for="street">地址:</label>
-        <input type="text" id="street" name="street" value="{{ old('street')}}">
+        <input type="text" id="street" name="street" value="{{ old('street', $employee->street)}}">
         <br/>
 
         <label for="emergencycontactname">緊急連絡人:</label>
-        <input type="text" id="emergencycontactname" name="emergencycontactname" value="{{ old('emergencycontactname')}}">
+        <input type="text" id="emergencycontactname" name="emergencycontactname" value="{{ old('emergencycontactname', $employee->emergencycontactname)}}">
         <br/>
 
         <label for="emergencycontactphone">緊急連絡人電話:</label>
-        <input type="text" id="emergencycontactphone" name="emergencycontactphone" value="{{ old('emergencycontactphone')}}">
+        <input type="text" id="emergencycontactphone" name="emergencycontactphone" value="{{ old('emergencycontactphone', $employee->emergencycontactphone)}}">
         <br/>
 
         <button type="submit">送出</button>
         <a href="{{ route('employees.index') }}">取消</a>
     </form>
     <script>
-        /*var districts = @json($districts);
+        var districts = @json($districts);
 
         function updateDistricts(cityId){
             
@@ -108,7 +106,7 @@
                     document.getElementById('district_id').value = oldDistrictId;
                 }, 100);
             }
-        });*/
+        });
     </script>
 </body>
 </html>
