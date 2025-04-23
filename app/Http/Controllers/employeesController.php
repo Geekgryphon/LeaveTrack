@@ -67,13 +67,13 @@ class employeesController extends Controller
     }
 
 
-    public function edit(string $id)
+    public function edit(string $employeeno)
     {
-        $employee = Employee::findOrFail($id);
-        $districts = District::all();
-        $cities = City::all();
-        $sexs = Parameter::select('', '')->where('name','=', 'Sex')->orderBy('sequence','asc')->get();
-        return view('employees.edit', compact('employee','district', 'cities'));
+        $employee = Employee::findOrFail($employeeno);
+        $districts = District::select('city_id','zipcode','name','seq')->orderBy('id','asc')->get();
+        $cities = City::select('id','name')->orderBy('seq','asc')->get();
+        $sexs = Parameter::select('description', 'value')->where('type','=', 'Sex')->orderBy('sequence','asc')->get();
+        return view('employees.edit', compact('employee','districts', 'cities', 'sexs'));
     }
 
     public function updateIsBanned(Request $request, string $employeeno){

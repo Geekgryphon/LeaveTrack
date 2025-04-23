@@ -30,9 +30,20 @@ Migrate
     重新創表 php artisan migrate:fresh 
 
 Seeder 
-
+    php artisan db:seed --class=SeederName                                      執行指定 Seeder 類別
     php artisan make:seeder DistrictSeeder
     寫入預設資料  php artisan db:seed
+
+    同時執行多個 Seeder（推薦集中呼叫）
+
+        DatabaseSeeder.php
+
+            public function run(){
+                $this->call([
+                    UsersTableSeeder::class,
+                    PostsTableSeeder::class,
+                ]);
+            }
 
 
 
