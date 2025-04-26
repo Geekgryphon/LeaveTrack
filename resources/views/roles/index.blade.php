@@ -42,14 +42,14 @@
                                         @csrf
                                         @method('DELETE')
                                         <div class="bg ">
-                                            <button type="submit">刪除</button>
+                                            <button type="submit">停用</button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                             
-                            <div class="w-1/7 inline-block">{{ $role->name }}</div>
-                            <div class="w-1/7 inline-block">{{ $role->symbol }}</div>
+                            <div class="w-1/7 inline-block">{{ $role->description }}</div>
+                            <div class="w-1/7 inline-block">{{ $role->value }}</div>
                         </div>
                     @endforeach
                 </div>

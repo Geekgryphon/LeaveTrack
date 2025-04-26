@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Employee;
 use App\Models\JobExpr;
 
 class jobexprsController extends Controller
@@ -13,7 +14,14 @@ class jobexprsController extends Controller
      */
     public function index()
     {
-        $jobexprs = JobExpr::paginate(10);
+        $jobexprs = DB::table('jobexprs')
+        ->join('parameters', function($join){
+            $join->on('jobexprs.jobtype', '=', 'parameters.value')
+                 ->where('parameters.type', '=', 'Role');
+        })
+        ->select('jobexprs.*', 'parameters.description', 'parameters.value')
+        ->orderBy('jobexprs.seq','asc')->paginate(10);
+        
         return view('jobexprs.index',compact('jobexprs'));
     }
 
@@ -22,7 +30,11 @@ class jobexprsController extends Controller
      */
     public function create()
     {
-        return view('jobexprs.create');
+        $employees = Employee::select('employeeno', 'name')->get();
+        $roles = DB::table('parameters')->where('type', '=', 'Role')->orderBy('seq', 'asc')
+                    ->select('description', 'value')->get();
+
+        return view('jobexprs.create',compact('roles', 'employees'));
     }
 
     /**
@@ -30,7 +42,9 @@ class jobexprsController extends Controller
      */
     public function store(Request $request)
     {
-        JobExpr::create($request);
+
+
+        JobExpr::create($request->all());
         return redirect()->route('jobexprs.index')->with('success', '工作經歷新增成功');
     }
 

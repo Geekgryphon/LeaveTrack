@@ -22,15 +22,17 @@
         @csrf
         @method('PUT')
 
-        <label for="id">ID:</label>
-        <div>{{ $role->id }}</div>
+        {{-- <input type="hidden" id="id" name="id" value="{{ $role->id }}"> --}}
+        <label for="name">職位名稱:</label>
+        <input type="text" id="name" name="name" value="{{ old('name', $role->name) }}">
+        <br>
 
-        <label for="symbol">職位代號:</label>
-        <input type="text" id="symbol" name="symbol" value="{{ old('symbol', $role->symbol) }}">
+        <label for="value">職位代號:</label>
+        <input type="text" id="value" name="value" value="{{ old('value', $role->value) }}">
         <br>
         
-        <label for="name">職位中文名稱:</label>
-        <input type="text" id="name" name="name" value="{{ old('name', $role->name) }}">
+        <label for="description">職位中文名稱:</label>
+        <input type="text" id="description" name="description" value="{{ old('descrpition', $role->description) }}">
         <br>
 
         <button type="submit">編輯參數</button>

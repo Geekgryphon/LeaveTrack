@@ -19,19 +19,19 @@
             沒有任何資料。
         </div>
         <br/>
-        <a href="{{ route('employees.create') }}">新增</a>
+        <a class="bg-blue-500" href="{{ route('employees.create') }}">新增</a>
     @else
        
             <div>
-                <div></div>
-                <div>職員帳號</div>
-                <div>職員姓名</div>
-                <div>性別</div>
-                <div>生日</div>
+                <div class="inline-block"></div>
+                <div class="inline-block">職員帳號</div>
+                <div class="inline-block">職員姓名</div>
+                <div class="inline-block">性別</div>
+                <div class="inline-block">生日</div>
             </div>
             @foreach($employees as $employee)
             <div>
-                <div>
+                <div class="inline-block" >
                     <div class="bg-green-500 p-2  inline-block">
                         <a href="{{ route('employees.edit', $employee->employeeno) }}">編輯</a>
                     </div>
@@ -45,13 +45,18 @@
                         </form>
                     </div>
                 </div>
-                <div>{{ $employee->employeeno }}</div>
-                <div>{{ $employee->employee_name }}</div>
-                <div>{{ $employee->sex }}</div>
-                <div>{{ $employee->birthday }}</div>
+                <div class="inline-block" >{{ $employee->employeeno }}</div>
+                <div class="inline-block">{{ $employee->employee_name }}</div>
+                <div class="inline-block">{{ $employee->sex }}</div>
+                <div class="inline-block">{{ $employee->birthday }}</div>
             </div>
             @endforeach
         <a class="bg-blue-500" href="{{ route('employees.create') }}">新增</a>
+
+        <br/>
+        <div>
+            {{ $employees->links() }}
+        </div>
 
     @endif
 </body>

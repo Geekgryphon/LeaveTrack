@@ -9,11 +9,11 @@
 <body>
     <h1>編輯職員資料</h1>
 
-    <form action="{{ route('employee.update', $employee->employeeno) }}" method="POST">
+    <form action="{{ route('employees.update', $employeeno) }}" method="POST">
         @csrf
+        @method('PUT')
 
-        <label for="employeeno">職員編號:</label>
-        <input type="text" id="employeeno" name="employeeno" value="{{ old('employeeno', $employee->employeeno)}}">
+        <label for="employeeno">職員編號: {{ $employeeno }}</label>
         <br/>
 
         <label for="name">職員姓名:</label>
@@ -40,7 +40,7 @@
         <select id="city_id" name="city_id">
             <option value=''>請選擇縣市</option>
             @foreach($cities as $citie)
-                <option value="{{ $citie->id }}" {{ old('city_id') == $citie->id ? 'selected' : '' }}>{{ $citie->name}}</option>
+                <option value="{{ $citie->id }}" {{ old('city_id', $employee->city_id) == $citie->id ? 'selected' : '' }}>{{ $citie->name}}</option>
             @endforeach
         </select>
         <br/>
@@ -69,44 +69,39 @@
     <script>
         var districts = @json($districts);
 
-        function updateDistricts(cityId){
-            
+    document.addEventListener("DOMContentLoaded", function () {
 
-            var districtDropdown = document.getElementById('district_id');
+        const citySelect = document.getElementById('city_id');
+        const districtSelect = document.getElementById('district_id');
 
-            if(!cityId) {
-                districtDropdown.innerHTML = "<option value=''>請選擇鄉鎮</option>";
-                return;
-            }else{
-                districtDropdown.innerHTML = "";
-            }
+        const oldCityId = "{{ old('city_id', $employee->city_id) }}";
+        const oldDistrictId = "{{ old('district_id', $employee->district_id) }}";
 
-            var filteredDistricts = districts.filter(d =>d.city_id == cityId);
+        function updateDistricts(cityId, districtSelectElement, selectedDistrictId = null) {
+            districtSelectElement.innerHTML = "<option value=''>請選擇鄉鎮</option>";
+
+            if (!cityId) return;
+
+            const filteredDistricts = districts.filter(d => d.city_id == cityId);
 
             filteredDistricts.forEach(d => {
-                var option = document.createElement('option');
+                const option = document.createElement('option');
                 option.value = d.id;
                 option.textContent = d.name;
-                districtDropdown.appendChild(option);
+                if (selectedDistrictId && String(selectedDistrictId) === String(d.id) ) {
+                    option.selected = true;
+                }
+                districtSelectElement.appendChild(option);
             });
         }
 
-        document.getElementById('city_id').addEventListener('change', function(){
-            updateDistricts(this.value);
+        updateDistricts(oldCityId, districtSelect, oldDistrictId);
+
+        citySelect.addEventListener('change', function () {
+            updateDistricts(this.value, districtSelect);
         });
+    });
 
-        document.addEventListener("DOMContentLoaded", function () {
-            var oldCityId = "{{ old('city_id') }}";
-            var oldDistrictId = "{{ old('district_id') }}";
-
-            if (oldCityId) {
-                updateDistricts(oldCityId);
-
-                setTimeout(() => {
-                    document.getElementById('district_id').value = oldDistrictId;
-                }, 100);
-            }
-        });
     </script>
 </body>
 </html>

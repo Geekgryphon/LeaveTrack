@@ -14,12 +14,12 @@
         <x-message :message="session('success')" />
     @endif
 
-    @if($cities->isEmpty())
+    @if($jobexprs->isEmpty())
         <div>
             沒有任何參數資料。
         </div>
         <br/>
-        <a href="{{ route('cities.create') }}">新增</a>
+        <a href="{{ route('jobexprs.create') }}">新增</a>
     @else
         <div>
             <div>
@@ -28,17 +28,19 @@
             <div>
                 <div>
                     <div></div>
-                    <div>縣市中文名稱</div>
-                    <div>縣市排列順序</div>
+                    <div>職員職編</div>
+                    <div>就職時間</div>
+                    <div>離職時間</div>
+                    <div>職位名稱</div>
                 </div>
                 <div>
-                    @foreach ($cities as $city)
+                    @foreach ($jobexprs as $jobexpr)
                         <div>
                             <div>
-                                <a href="{{ route('cities.edit', $city->id) }}">編輯</a>
+                                <a href="{{ route('jobexprs.edit', $jobexpr->id) }}">編輯</a>
                             </div>
                             <div>
-                                <form action="{{ route('cities.destroy', $city->id) }}" method="POST">
+                                <form action="{{ route('jobexprs.destroy', $jobexpr->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <div class="">
@@ -47,12 +49,14 @@
                                 </form>
                             </div>
                         </div>
-                        <div> {{ $city->name }} </div>
-                        <div> {{ $city->seq }} </div>
+                        <div> {{ $jobexpr->employee_id }} </div>
+                        <div> {{ $jobexpr->begindate }} </div>
+                        <div> {{ $jobexpr->enddate }} </div>
+                        <div> {{ $jobexpr->description }} </div>
                     @endforeach
                 </div>
                 <div>
-                    <a href="{{ route('cities.create') }}">新增</a>
+                    <a href="{{ route('jobexprs.create') }}">新增</a>
                 </div>
             </div>
         </div>
