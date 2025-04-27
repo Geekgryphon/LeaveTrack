@@ -48,7 +48,7 @@
         <br/>
         
         <button type="submit">新增經歷</button>
-        <a href="{{ route('cities.index') }}">取消</a>
+        <a href="{{ route('jobexprs.index') }}">取消</a>
     </form>
 </body>
 </html>

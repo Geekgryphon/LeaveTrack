@@ -18,24 +18,37 @@
         </div>
     @endif
 
-    <form action="{{ route('cities.update', $city->id) }}" method="POST">
+    <form action="{{ route('jobexprs.update', $jobexpr->id) }}" method="POST">
         @csrf
         @method('PUT')
 
-        <label for="id">ID:</label>
-        <div>{{ $city->id }}</div>
+        <label for="employee_id">職員職編:</label>
         
-        <label for="name">縣市中文名稱:</label>
-        <input type="text" id="name" name="name" value="{{ old('name', $city->name) }}">
+        <select id="employee_id" name="employee_id">
+            @foreach($employees as $employee)  
+                <option value='{{ $employee->employeeno }}' {{ old('employee_id', $jobexpr->employee_id) == $employee->employeeno ? 'selected' : '' }} >{{ $employee->employeeno }} - {{ $employee->name}}</option>
+            @endforeach
+        </select>
         <br>
 
-        <label for="value">縣市排列順序:</label>
-        <input type="number" id="seq" name="seq" value="{{ old('seq', $city->seq) }}">
+        <label for="begindate">入職時間:</label>
+        <input type="date" id="begindate" name="begindate" value="{{ old('begindate', $jobexpr->begindate) }}">
         <br>
 
-        <button type="submit">編輯縣市</button>
+        <label for="enddate">離職時間:</label>
+        <input type="date" id="enddate" name="enddate" value="{{ old('enddate', $jobexpr->enddate) }}">
+        <br>
 
-        <a href="{{ route('cities.index') }}">取消</a>
+        <label for="jobtype">職位種類:</label>
+        <select id="jobtype" name="jobtype">
+            @foreach($roles as $role)
+                <option value='{{ $role->value }}' {{ old('jobtype', $jobexpr->jobtype) == $role->value ? 'selected' : '' }} >{{ $role->description}}</option>
+            @endforeach
+        </select>
+        <br/>
+        
+        <button type="submit">編輯經歷</button>
+        <a href="{{ route('jobexprs.index') }}">取消</a>
     </form>
 </body>
 </html>

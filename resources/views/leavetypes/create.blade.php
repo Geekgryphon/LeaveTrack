@@ -29,7 +29,7 @@
         <input type="text" id="name" name="name" value="{{ old('name') }}">
         <br>
         
-        <button type="submit">新增縣市</button>
+        <button type="submit">新增假別</button>
 
         <a href="{{ route('leavetypes.index') }}">取消</a>
     </form>

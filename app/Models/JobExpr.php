@@ -8,7 +8,7 @@ class JobExpr extends Model
 {
     public $timestamps = false;
 
-    protected $table = 'leavetypes';
+    protected $table = 'jobexprs';
     protected $primaryKey = 'id';
-    protected $fillable = ['employeeID', 'jobtype', 'seq', 'begindate', 'enddate'];
+    protected $fillable = ['employee_id', 'jobtype', 'seq', 'begindate', 'enddate'];
 }

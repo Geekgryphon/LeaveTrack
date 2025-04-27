@@ -42,7 +42,13 @@ class jobexprsController extends Controller
      */
     public function store(Request $request)
     {
+        $jobExprCount = DB::table('jobexprs')
+                           ->where('employee_id', $request->input('employee_id'))
+                           ->count() + 1;
 
+        $request->merge([
+            'seq' => $jobExprCount,
+        ]);
 
         JobExpr::create($request->all());
         return redirect()->route('jobexprs.index')->with('success', '工作經歷新增成功');
@@ -53,8 +59,11 @@ class jobexprsController extends Controller
      */
     public function edit(string $id)
     {
+        $employees = Employee::select('employeeno', 'name')->get();
+        $roles = DB::table('parameters')->where('type', '=', 'Role')->orderBy('seq', 'asc')
+                    ->select('description', 'value')->get();
         $jobexpr = JobExpr::findOrFail($id);;
-        return view('jobexprs.edit', compact('jobexpr'));
+        return view('jobexprs.edit', compact('jobexpr', 'employees', 'roles'));
     }
 
     /**
@@ -63,12 +72,12 @@ class jobexprsController extends Controller
     public function update(Request $request, string $id)
     {
         $jobexpr = JobExpr::findOrFail($id);
+        
         $jobexpr->update([
-            'employeeID' => $request->employeeID,
+            'employee_id' => $request->employee_id,
             'jobtype' => $request->jobtype,
             'begindate' => $request->begindate,
             'enddate' => $request->enddate,
-            'seq' => $request->seq
         ]);
 
         return redirect()->route('jobexprs.index')->with('success', "ID為{$id}的工作經歷更新成功！");
