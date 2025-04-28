@@ -32,7 +32,7 @@
                     <div class="w-10 inline-block">參數值</div>
                     <div class="w-10 inline-block">描述</div>
                     <div class="w-10 inline-block">該參數類別參數排序</div>
-                    <div class="w-20 inline-block"></div>
+                    <div class="w-20 inline-block">使用中</div>
                 </div>
                 <div>
                     @foreach($parameters as $parameter)
@@ -57,6 +57,7 @@
                             <div class="w-1/7 inline-block">{{ $parameter->value }}</div>
                             <div class="w-1/7 inline-block">{{ $parameter->description }}</div>
                             <div class="w-1/7 inline-block">{{ $parameter->sequence }}</div>
+                            <div class="w-1/7 inline-block">{{ $parameter->IsUsed == '1' ? '使用中' : '已停用' }}</div>
                         </div>
                     @endforeach
                 </div>

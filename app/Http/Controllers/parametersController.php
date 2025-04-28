@@ -108,6 +108,8 @@ class parametersController extends Controller
         ]);
 
         $parameter = Parameter::findOrFail($id);
+        $parameter->IsUsed = $request->has('IsUsed') ? 1 : 0;
+
         $parameter->update([
             'type' => $request->type,
             'name' => $request->name,

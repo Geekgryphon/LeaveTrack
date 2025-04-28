@@ -22,8 +22,7 @@
         @csrf
         @method('PUT')
 
-        <label for="id">ID:</label>
-        <div>{{ $parameter->id }}</div>
+        <label for="id">ID: {{ $parameter->id }}</label>
 
         <label for="type">參數類別:</label>
         <input type="text" id="type" name="type" value="{{ old('type', $parameter->type) }}">
@@ -44,6 +43,10 @@
         <label for="value">同參數類別排序:</label>
         <input type="number" id="sequence" name="sequence" value="{{ old('sequence', $parameter->sequence) }}">
         <br>
+
+        <label for="IsUsed">使用中:</label>
+        <input type="checkbox" id="IsUsed", name="IsUsed" value="1" {{ old('IsUsed', $parameter->IsUsed) ? 'checked' : '' }}>
+        <br/>
 
         <button type="submit">編輯參數</button>
 

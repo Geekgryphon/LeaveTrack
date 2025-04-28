@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\LeaveType;
+use App\Models\Parameter;
+
 
 class leavetypesController extends Controller
 {
@@ -13,7 +14,7 @@ class leavetypesController extends Controller
      */
     public function index()
     {
-        $leavetypes = LeaveType::paginate(10);
+        $leavetypes = DB::table('parameters')->where('type', 'Leavetype')->orderby('sequence', 'asc')->paginate(10);
         return view('leavetypes.index',compact('leavetypes'));
     }
 
@@ -32,27 +33,37 @@ class leavetypesController extends Controller
     {
          //check form content
          $validated = $request->validate([
-            'code' => 'required',
             'name' => 'required',
+            'description' => 'required',
+            'value' => 'required',
         ], [
-            'code.required' => '假別代號為必填!',
-            'name.required' => '假別名稱為必填!',
+            'name.required' => '假別英文名稱為必填!',
+            'description.required' => '假別中文名稱為必填!',
+            'value.required' => '假別代號為必填!',
         ]);
 
         //check data exists
         $isExists =  DB::table('parameters')
-            ->where('code', $request->code)
-            ->where('name', $request->name)
+            ->where('value', $request->value)
+            ->where('type', 'Leavetype')
             ->first();
 
         if ($isExists) {
             return back()->withErrors([
-                'name' => '該假別代碼和名稱的組合已存在，請輸入其他資料。',
+                'name' => '該假別代碼已存在，請輸入其他資料。',
             ])->withInput();
         }
 
+        $seq = DB::table('parameters')->where('type', 'Leavetype')->count() + 1;
 
-        LeaveType::create($validated);
+
+        $validated = array_merge($validated, [
+            'type' => 'Leavetype',
+            'sequence' => $seq
+        ]);
+
+
+        Parameter::create($validated);
 
         // redirect 有避免使用者重新送出表單的效果 store destroy
         return redirect()->route('leavetypes.index')->with('success', '假別新增成功');
@@ -65,7 +76,7 @@ class leavetypesController extends Controller
      */
     public function edit(string $id)
     {
-        $leavetype = LeaveType::findOrFail($id);;
+        $leavetype = Parameter::findOrFail($id);;
         return view('leavetypes.edit', compact('leavetype'));
     }
 
@@ -74,19 +85,11 @@ class leavetypesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-       //check form content
-       $validated = $request->validate([
-        'code' => 'required',
-        'name' => 'required',
-        ], [
-            'code.required' => '假別代號為必填!',
-            'name.required' => '假別名稱為必填!',
-        ]);
-
-        $leavetype = LeaveType::findOrFail($id);
+        $leavetype = Parameter::findOrFail($id);
         $leavetype->update([
-            'code' => $request->code,
-            'name' => $request->name
+            'name' => $request->name,
+            'description' => $request->description,
+            'value' => $request->value
         ]);
 
         return redirect()->route('leavetypes.index')->with('success', "ID為{$id}的假別更新成功！");
@@ -97,7 +100,7 @@ class leavetypesController extends Controller
      */
     public function destroy(string $id)
     {
-        $leavetype = LeaveType::findOrFail($id);
+        $leavetype = Parameter::findOrFail($id);
         $leavetype->delete();
         return redirect()->route('leavetypes.index')->with('success', '假別刪除成功');
     }

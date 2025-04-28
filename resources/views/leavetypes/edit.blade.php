@@ -22,15 +22,18 @@
         @csrf
         @method('PUT')
 
-        <label for="id">ID:</label>
-        <div>{{ $leavetype->id }}</div>
-        
-        <label for="code">假別代號:</label>
-        <input type="text" id="code" name="code" value="{{ old('code', $leavetype->code) }}">
+        <label for="id">ID: {{ $leavetype->id }}</label>
+
+        <label for="name">假別英文名稱:</label>
+        <input type="text" id="name" name="name" value="{{ old('name', $leavetype->name) }}">
         <br>
 
-        <label for="name">假別名稱:</label>
-        <input type="text" id="name" name="name" value="{{ old('name', $leavetype->name) }}">
+        <label for="description">假別中文名稱:</label>
+        <input type="text" id="description" name="description" value="{{ old('description', $leavetype->description) }}">
+        <br>
+
+        <label for="value">假別代號:</label>
+        <input type="text" id="value" name="value" value="{{ old('value', $leavetype->value) }}">
         <br>
 
         <button type="submit">編輯假別</button>

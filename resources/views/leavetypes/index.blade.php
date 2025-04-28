@@ -35,20 +35,20 @@
                     @foreach ($leavetypes as $leavetype)
                         <div>
                             <div>
-                                <a href="{{ route('leavetypes.edit', $leavetype->id) }}">編輯</a>
+                                <a class="bg-green-600" href="{{ route('leavetypes.edit', $leavetype->id) }}">編輯</a>
                             </div>
                             <div>
                                 <form action="{{ route('leavetypes.destroy', $leavetype->id) }}" method="POST">
                                     @csrf
-                                    @method('DELETE')
-                                    <div class="">
-                                        <button type="submit">刪除</button>
+                                    @method('PUT')
+                                    <div>
+                                        <button class="bg-red-500" type="submit">停用</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
-                        <div> {{ $leavetype->code }} </div>
-                        <div> {{ $leavetype->name }} </div>
+                        <div> {{ $leavetype->description }} </div>
+                        <div> {{ $leavetype->value }} </div>
                     @endforeach
                 </div>
                 <div>
