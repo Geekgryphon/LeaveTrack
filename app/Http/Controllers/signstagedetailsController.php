@@ -3,18 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\Signstate;
 
-class signstageController extends Controller
+class signstagesdetailController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $signstages = Signstate::paginate(10);
-        return view('signstages.index',compact('signstages'));
+        //
     }
 
     /**
@@ -22,7 +19,7 @@ class signstageController extends Controller
      */
     public function create()
     {
-        return view('signstages.create');
+        //
     }
 
     /**
@@ -33,6 +30,13 @@ class signstageController extends Controller
         //
     }
 
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -50,7 +54,10 @@ class signstageController extends Controller
         //
     }
 
-    public function updateIsUsed(string $id)
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
     {
         //
     }

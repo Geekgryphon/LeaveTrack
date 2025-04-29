@@ -11,6 +11,8 @@ use App\Http\Controllers\districtsController;
 use App\Http\Controllers\employeesController;
 use App\Http\Controllers\leaveformsController;
 use App\Http\Controllers\signproxiesController;
+use App\Http\Controllers\signstagesController;
+use App\Http\Controllers\signstagedetailsController;
 
 
 
@@ -76,6 +78,14 @@ Route::post('/signproxies', [signproxiesController::class, 'store'])->name('sign
 Route::get('/signproxies/{id}/edit', [signproxiesController::class, 'edit'])->name('signproxies.edit');
 Route::put('/signproxies/{id}', [signproxiesController::class, 'update'])->name('signproxies.update');
 Route::delete('/signproxies/{id}', [signproxiesController::class, 'destroy'])->name('signproxies.destroy');
+
+
+Route::get('/signstages', [signstagesController::class, 'index'])->name('signstages.index');
+Route::get('/signstages/create', [signstagesController::class, 'create'])->name('signstages.create');
+Route::post('/signstages', [signstagesController::class, 'store'])->name('signstages.store');
+Route::get('/signstages/{id}/edit', [signstagesController::class, 'edit'])->name('signstages.edit');
+Route::put('/signstages/{id}', [signstagesController::class, 'update'])->name('signstages.update');
+Route::patch('/signstages/{id}/IsUsed', [signstagesController::class, 'updateIsUsed'])->name('signstages.updateIsUsed');
 
 Route::get('/', function() {
     return view('welcome');

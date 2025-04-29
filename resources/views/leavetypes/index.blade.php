@@ -52,7 +52,7 @@
                     @endforeach
                 </div>
                 <div>
-                    <a href="{{ route('leavetypes.create') }}">新增</a>
+                    <a class="bg-blue-500" href="{{ route('leavetypes.create') }}">新增</a>
                 </div>
             </div>
         </div>

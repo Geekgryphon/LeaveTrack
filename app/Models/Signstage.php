@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Signstate extends Model
+class Signstage extends Model
 {
     public $timestamps = false;
 
-    protected $table = "signstage";
+    protected $table = "signstages";
     protected $primary = "id";
     protected $fillable = ["code", "name", "IsUsed"];
 }

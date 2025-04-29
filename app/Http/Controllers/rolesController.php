@@ -107,13 +107,4 @@ class rolesController extends Controller
         return redirect()->route('roles.index')->with('success', "職位更新成功！");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        $role = Role::findOrFail($id);
-        $role->delete();
-        return redirect()->route('roles.index')->with('success', '參數刪除成功');
-    }
 }

@@ -23,6 +23,7 @@
         @method('PUT')
 
         <label for="id">ID: {{ $leavetype->id }}</label>
+        <br/>
 
         <label for="name">假別英文名稱:</label>
         <input type="text" id="name" name="name" value="{{ old('name', $leavetype->name) }}">

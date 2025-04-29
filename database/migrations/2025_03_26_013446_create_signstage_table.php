@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('signstage', function (Blueprint $table) {
+        Schema::create('signstages', function (Blueprint $table) {
             $table->id();
             $table->string('code');
             $table->string('name');
+            $table->boolean('IsUsed')->default(1);
         });
     }
 
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('signstage');
+        Schema::dropIfExists('signstages');
     }
 };
