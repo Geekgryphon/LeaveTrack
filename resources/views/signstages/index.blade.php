@@ -43,7 +43,7 @@
                                         @csrf
                                         @method('PATCH')
                                         <div>
-                                            <button type="submit">停用</button>
+                                            <button type="submit">{{ $signstage->IsUsed ? '停用' : '啟用' }}</button>
                                         </div>
                                     </form>
                                 </div>

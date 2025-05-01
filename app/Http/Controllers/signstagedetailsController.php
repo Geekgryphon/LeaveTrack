@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Signstagedetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class signstagesdetailController extends Controller
 {
@@ -11,7 +14,8 @@ class signstagesdetailController extends Controller
      */
     public function index()
     {
-        //
+        $signdetails = "";
+        return view('signstagedetails.index', compact(''));
     }
 
     /**
@@ -19,7 +23,8 @@ class signstagesdetailController extends Controller
      */
     public function create()
     {
-        //
+        $signs = DB::table('signstages')->select('*')->get();
+        return view('signstagedetails.create', compact('signs'));
     }
 
     /**
@@ -27,23 +32,18 @@ class signstagesdetailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+
+        return redirect()->route('signstagedetails.index')->with('success','新增簽核關卡成功');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        return  view('signstagedetails.edit',compact('', 'signs'));
     }
 
     /**
@@ -51,14 +51,16 @@ class signstagesdetailController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return redirect()->route('signstagedetails.index')->with('success', '編輯簽核關卡完成');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+    public function updateSignDetail(Request $request, string $id){
+        $signdetail = Signstagedetail::findOrfail($id);
+        $signdetail->IsUsed = $signdetail->IsUsed ? 0 : 1 ;
+        $signdetail->save();
+        return redirect()->route('signdetail.index')->with('success', '簽核關卡更新完成');
+
+
     }
+
 }

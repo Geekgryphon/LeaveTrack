@@ -49,7 +49,14 @@ class signstagesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $signstage = Signstage::findOrFail($id);
+
+        $signstage->update([
+            'code' => $request->code,
+            'name' => $request->name,
+        ]);
+
+        return redirect()->route('signstages.index')->with('success', "簽核更新成功！");
     }
 
     public function updateIsUsed(string $id)
