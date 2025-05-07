@@ -7,15 +7,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
-class signstagesdetailController extends Controller
+class signstagedetailsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $signdetails = "";
-        return view('signstagedetails.index', compact(''));
+        $signstagedetails = DB::table('signstagedetails')->select('*')->get();
+        
+        return view('signstagedetails.index', compact('signstagedetails'));
     }
 
     /**
@@ -23,8 +24,9 @@ class signstagesdetailController extends Controller
      */
     public function create()
     {
-        $signs = DB::table('signstages')->select('*')->get();
-        return view('signstagedetails.create', compact('signs'));
+        $signstages = DB::table('signstages')->select('*')->get();
+        $employees = DB::table('employees')->select('employee', 'name')->get();
+        return view('signstagedetails.create', compact('signstages', 'employees'));
     }
 
     /**
@@ -58,9 +60,13 @@ class signstagesdetailController extends Controller
         $signdetail = Signstagedetail::findOrfail($id);
         $signdetail->IsUsed = $signdetail->IsUsed ? 0 : 1 ;
         $signdetail->save();
-        return redirect()->route('signdetail.index')->with('success', '簽核關卡更新完成');
+        return redirect()->route('signstagedetails.index')->with('success', '簽核關卡更新完成');
+    }
 
-
+    public function destory(string $id){
+        $signstagedetail = Signstagedetail::findOrfail($id);
+        $signstagedetail->delete();
+        return redirect()->route('signstagedetails.index')->with('success','簽核關卡刪除完成');
     }
 
 }

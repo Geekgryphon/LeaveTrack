@@ -87,6 +87,14 @@ Route::get('/signstages/{id}/edit', [signstagesController::class, 'edit'])->name
 Route::put('/signstages/{id}', [signstagesController::class, 'update'])->name('signstages.update');
 Route::patch('/signstages/{id}/IsUsed', [signstagesController::class, 'updateIsUsed'])->name('signstages.updateIsUsed');
 
+Route::get('/signstagedetails', [signstagedetailsController::class, 'index'])->name('signstagedetails.index');
+Route::get('/signstagedetails/create', [signstagedetailsController::class, 'create'])->name('signstagedetails.create');
+Route::post('/signstagedetails', [signstagedetailsController::class,'store'])->name('signstagedetails.store');
+Route::get('/signstagedetails/{id}/edit', [signstagedetailsController::class,'edit'])->name('signstages.edit');
+Route::put('/signstagedetails/{id}', [signstagedetailsController::class,'update'])->name('signstagedetails.update');
+Route::delete('/signstagedetails/{id}',[signstagedetailsController::class,'destroy'])->name('signstagedetails.destroy');
+
+
 Route::get('/', function() {
     return view('welcome');
 });
