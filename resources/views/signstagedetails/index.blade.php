@@ -20,6 +20,33 @@
         <br/>
         <a href="{{ route('signstagedetails.create') }}">新增簽核關卡</a>
     @else
+        <div>
+            <div></div>
+            <div>簽核項目</div>
+            <div>簽核者</div>
+            <div>簽核項目簽核順序</div>
+        </div>
+        <div>
+        @foreach($signstagedetails as $signstagedetail)
+            <div>
+                <div>
+                    <a href="{{ route('signstagedetails.edit', $signstagedetail->id) }}">編輯</a>
+                </div>
+                <div>
+                    <form action="{{ route('signstagedetails.destroy', $signstagedetail->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <div>
+                            <button type="submit">刪除</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div>{{ $signstagedetail->code }}</div>
+            <div>{{ $signstagedetail->employee }}</div>
+            <div>{{ $signstagedetail->order }}</div>
+        @endforeach
+        </div> 
         <a href="{{ route("signstagedetails.create"); }}">新增簽核關卡</a>
     @endif
 
