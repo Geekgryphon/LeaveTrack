@@ -14,7 +14,16 @@ class signstagedetailsController extends Controller
      */
     public function index()
     {
-        $signstagedetails = DB::table('signstagedetails')->select('*')->get();
+        $signstagedetails = DB::table('signstagedetails')
+        ->join('signstages', 'signstagedetails.signstage_id', '=', 'signstages.id')
+        ->join('employees', 'signstagedetails.employee_id', '=', 'employees.employeeno')
+        ->select('employees.employeeno as employee_id',
+                 'employees.name as employee_name',
+                 'signstagedetails.order as seq',
+                 'signstagedetails.id',
+                 'signstages.id as signstage_id',
+                 'signstages.code as signstage_code')
+        ->get();
         
         return view('signstagedetails.index', compact('signstagedetails'));
     }
@@ -24,8 +33,9 @@ class signstagedetailsController extends Controller
      */
     public function create()
     {
-        $signstages = DB::table('signstages')->select('*')->get();
-        $employees = DB::table('employees')->select('employee', 'name')->get();
+        $signstages = DB::table('signstages')->select('id', 'name')
+        ->where('IsUsed', '1')->get();
+        $employees = DB::table('employees')->select('employeeno', 'name')->get();
         return view('signstagedetails.create', compact('signstages', 'employees'));
     }
 
@@ -34,7 +44,16 @@ class signstagedetailsController extends Controller
      */
     public function store(Request $request)
     {
-       
+       $signstageId = $request->input('signstage_id');
+       $order = DB::table('signstagedetails')
+                ->where("signstage_id", $signstageId)
+                ->count() + 1;
+
+        DB::table('signstagedetails')->insert([
+            'signstage_id' => $signstageId,
+            'employee_id' => $request->input('employee_id'),
+            'order' => $order
+        ]);
 
         return redirect()->route('signstagedetails.index')->with('success','新增簽核關卡成功');
     }
@@ -45,7 +64,11 @@ class signstagedetailsController extends Controller
      */
     public function edit(string $id)
     {
-        return  view('signstagedetails.edit',compact('', 'signs'));
+        $signstagedetail = Signstagedetail::findOrFail($id);
+        $signstages = DB::table('signstages')->select('id', 'name')
+        ->where('IsUsed', '1')->get();
+        $employees = DB::table('employees')->select('employeeno', 'name')->get();
+        return  view('signstagedetails.edit',compact('signstagedetail','employees', 'signstages'));
     }
 
     /**
@@ -53,6 +76,10 @@ class signstagedetailsController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $signstagedetail = Signstagedetail::findOrFail($id);
+        $signstagedetail->employee_id = $request->input('employeeno');
+        $signstagedetail->order = $request->input('order');
+        $signstagedetail->save();
         return redirect()->route('signstagedetails.index')->with('success', '編輯簽核關卡完成');
     }
 

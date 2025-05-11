@@ -8,7 +8,9 @@
 </head>
 <body>
     <h1>編輯簽核關卡</h1>
-    <form action="" method="POST">
+    <form action="{{ route('signstagedetails.update', $signstagedetail->id) }}" method="POST">
+        @csrf
+        @method('PUT')
         <label for="">簽核項目</label>
         <br>
 
@@ -20,9 +22,10 @@
         </select>
         <br>
 
-        <label for="seq">順序</label>
-        <input type="number" name="seq" id="seq" 
-        value="{{ old('seq', $signstagedetail->seq ? $signstagedetail->seq : '' )  }}">
+        <label for="order">順序</label>
+        <input type="number" name="order" id="order" 
+        value="{{ old('order', $signstagedetail->order)  }}">
+        <br/>
         
         <button type="submit">編輯</button>
         <a href="{{ route('signstagedetails.index') }}">取消</a>

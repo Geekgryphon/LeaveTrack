@@ -11,7 +11,7 @@ class leaveformsController extends Controller
      */
     public function index()
     {
-        //
+        return view("leaveforms.index",compact(""));
     }
 
     /**
@@ -19,7 +19,7 @@ class leaveformsController extends Controller
      */
     public function create()
     {
-        //
+        return view("leaveforms.create", compact(""));
     }
 
     /**
@@ -27,7 +27,7 @@ class leaveformsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect()->route("leaveforms.index")->with("success","");
     }
 
     /**
@@ -35,7 +35,7 @@ class leaveformsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view("leaveforms.edit",compact(""));
     }
 
     /**
@@ -43,7 +43,7 @@ class leaveformsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return redirect()->route("leaveforms.index")->with("success","");
     }
 
     /**
@@ -51,6 +51,6 @@ class leaveformsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return redirect()->route("leaveforms.index")->with("success","");
     }
 }

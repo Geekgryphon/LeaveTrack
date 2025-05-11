@@ -25,7 +25,7 @@
         <label for="signstage_id">簽核項目:</label>
         <select id="signstage_id" name="signstage_id">
             @foreach( $signstages as $signstage)
-                <option value="{{ $signstage->code }}" {{ old("signstage_id") == $signstage->code ? 'selected' : ''  }} > {{ $signstage->name }}</option>
+                <option value="{{ $signstage->id }}" {{ old("signstage_id") == $signstage->id ? 'selected' : ''  }} > {{ $signstage->name }}</option>
             @endforeach
         </select>
         <br/>

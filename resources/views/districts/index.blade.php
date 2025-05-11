@@ -55,6 +55,7 @@
                         <div> {{ $district->seq }} </div>
                     @endforeach
                 </div>
+                {{ $districts->links() }} 
                 <div>
                     <a href="{{ route('districts.create') }}">新增</a>
                 </div>

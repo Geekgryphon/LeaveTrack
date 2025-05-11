@@ -42,9 +42,9 @@
                     </form>
                 </div>
             </div>
-            <div>{{ $signstagedetail->code }}</div>
-            <div>{{ $signstagedetail->employee }}</div>
-            <div>{{ $signstagedetail->order }}</div>
+            <div>{{ $signstagedetail->signstage_code }}</div>
+            <div>{{ $signstagedetail->employee_id }}</div>
+            <div>{{ $signstagedetail->seq }}</div>
         @endforeach
         </div> 
         <a href="{{ route("signstagedetails.create"); }}">新增簽核關卡</a>
