@@ -36,6 +36,13 @@ class signproxiesController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'employee_id' => 'required',
+            'proxy_id' => 'required|different:employee_id'
+        ],[
+            'proxy_id.different' => '代理人不能與申請人相同。',
+        ]);
+
         Signproxy::create($request->all());
         return redirect()->route('signproxies.index')->with('success', '代理資料新增成功');
     }

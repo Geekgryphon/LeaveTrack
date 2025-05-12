@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('employee_id');
             $table->date('begindate');
-            $table->date('enddate');
+            $table->date('enddate')->nullable();
             $table->string('jobtype');
             $table->integer('seq');
         });
