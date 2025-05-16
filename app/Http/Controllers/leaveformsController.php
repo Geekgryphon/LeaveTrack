@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\LeaveForm;
 
 class leaveformsController extends Controller
 {
@@ -11,7 +13,8 @@ class leaveformsController extends Controller
      */
     public function index()
     {
-        return view("leaveforms.index",compact(""));
+        $leaveforms = "";
+        return view("leaveforms.index", compact("leaveforms"));
     }
 
     /**
@@ -19,7 +22,9 @@ class leaveformsController extends Controller
      */
     public function create()
     {
-        return view("leaveforms.create", compact(""));
+        $employees = DB::table('employees')->select('employeeno', 'name')->get();
+        $signstages = DB::table('signstages')->select('id', 'code', 'name')->where('IsUsed', '1')->get();
+        return view("leaveforms.create", compact("employees", "signstages"));
     }
 
     /**
@@ -31,26 +36,10 @@ class leaveformsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        return view("leaveforms.edit",compact(""));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        return redirect()->route("leaveforms.index")->with("success","");
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        return redirect()->route("leaveforms.index")->with("success","");
+        return redirect()->route("leaveforms.index")->with("success","該單做廢成功");
     }
 }

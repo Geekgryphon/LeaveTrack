@@ -7,7 +7,28 @@
     <title>Document</title>
 </head>
 <body>
+
+    <h1>新增請假申請單</h1>
+
+    @if($errors->any())
+        <div>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{ route('leaveforms.store') }}">
+
+        <label for="employee_id">請假者</label>
+        <select name="employee_id" id="employee_id">
+            @foreach($employees as $employee)
+                <option value="{{ $employee->employeeno }}" {{ old('employee_id') == $employee->employeeno ? 'selected' : ''  }}>{{ $employee->employeeno }} - {{ $employee->name }}</option>
+            @endforeach
+        </select>
+
         <label for="signstage_id">簽核項目</label>
         <select name="signstage_id" id="signstage_id">
             @foreach( $signstages as $signstage)
@@ -28,10 +49,10 @@
         <textarea name="reason" id="reason" cols="30" rows="10">
             {{ old('reason') }}
         </textarea>
-
-
+        <br/>
 
         <button type="submit">新增請假單</button>
+        <a href="{{ route('leaveforms.index') }}">取消</a>
     </form>
 </body>
 </html>

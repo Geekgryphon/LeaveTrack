@@ -67,3 +67,15 @@ belongsToMany
 如果使用validate來驗證新增或編輯的值記得要將全部request內的值寫入$validate
 否則request會有部分的內容沒有被寫入
 
+
+
+use App\Models\Employee;
+
+$employees = Employee::all();
+$employee = Employee::where('employeeno', 'E123')->first();
+$names = Employee::select('name', 'email')->get();
+
+
+use Illuminate\Support\Facades\DB;
+
+$employees = DB::select('SELECT * FROM employees WHERE is_active = ?', [1]);
